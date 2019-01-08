@@ -1,0 +1,6 @@
+# Ignore file named `README.txt`
+README.txt
+
+# Ignore .idea
+.idea
+.idea/

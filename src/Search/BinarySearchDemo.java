@@ -2,6 +2,10 @@ package Search;
 
 import java.util.*;
 
+/**
+ * @author 禅者无心
+ *
+ */
 public class BinarySearchDemo {
 
 	int[] arr;
@@ -10,24 +14,27 @@ public class BinarySearchDemo {
 		arr = tArr;
 	}
 
-	/**查找某项所在位置
+	/**
+	 * 查找某项所在位置
+	 * 
 	 * @param item
 	 * @return
 	 */
 	public int IndexOf(int item) {
 
 		int l = 0, r = arr.length - 1;
-		while (l <= r) {
-			int m =l+ (r-1) / 2;
-			if (arr[m] == item)
+
+		while (l < r) {
+			int m = (l + r) / 2;
+			if (item == arr[m])
 				return m;
-			// 查找项大于中间值，丢掉左边
 			if (item > arr[m])
 				l = m + 1;
+
 			if (item < arr[m])
 				r = m - 1;
-		} 
-		
+		}
+
 		return -1;
 	}
 
@@ -47,19 +54,16 @@ public class BinarySearchDemo {
 		boolean exsist = false;
 		while (max > min) {
 			high = max / 2; // 索引位置记录
-
-			if (key > arr[high]) {
-				min = high;
-				continue;
-			}
-			if (key < arr[high]) {
-				max = high;
-				continue;
-			}
 			if (key == arr[high]) {
 				exsist = true;
 				break;
 			}
+			if (key > arr[high]) {
+				min = high;
+			} else if (key < arr[high]) {
+				max = high; 
+			}
+
 		}
 		return exsist;
 	}
@@ -70,9 +74,27 @@ public class BinarySearchDemo {
 	 * @param item 查询元素
 	 * @return 索引
 	 */
-	public int First(int item) {
+	public int FirstOfIndex(int item) {
+		int l = 0, r = arr.length - 1;
+		int first = -1;
+		if (item == arr[l])
+			return l;
 
-		return -1;
+		while (l < r) {
+			int m = (l + r) / 2;
+			// 找到了，要看看前面是否还有相同的值
+			if (item == arr[m]) {
+				first = m;
+				l = m + 1;
+			}
+			// 比m 之前的数据都要大，丢掉[l,m]的数据
+			if (item > arr[m])
+				l = m + 1;
+			else
+				r = m - 1;
+		}
+
+		return first;
 	}
 
 }
